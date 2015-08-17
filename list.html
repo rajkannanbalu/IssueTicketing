@@ -1,0 +1,59 @@
+
+
+<style>
+table, th , td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.selected {
+    background-color:black;
+    color:white;
+    font-weight:bold;
+}
+</style>
+
+<h1> List of Issues </h1>
+
+<div>
+<div class="form-group col-lg-12">
+  <label for="ex1">Search</label>
+  <input class="form-control" id="search" ng-model="search" type="text" placeholder="search">
+</div>
+
+<div id="ticket-list" class="form-group col-lg-12">
+          
+                <table>
+                	<tr>
+                			<th> No. </th>
+                			<th>Title</th>
+                			<th>Severity</th>
+                			<th>Assignee</th>
+                			<th>State</th>
+                			<th>Description</th>
+            		</tr>
+
+  					<tr ng-repeat="issue in issuelist | filter:search"  ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)">
+  						<td>{{$index}}</td>
+  						<td>
+    					 <div ng-show="!issue.edit.title" ng-dblclick="issue.edit.title = !issue.edit.title">{{issue.title}}</div>
+                        <input type="text" ng-show="issue.edit.title" ng-blur="issue.edit.title = !issue.edit.title" ng-model="issue.edit.title" />
+                        </td>
+    					<td>{{ issue.severity }}</td>
+    					<td>{{ issue.assignee }}</td>
+    					<td>{{ issue.state }}</td>
+    					<td>{{ issue.description }}</td>
+  					</tr>
+				</table>
+                
+            
+ </div>
+
+</div>
