@@ -16,21 +16,15 @@
 </head>
 <body ng-app="IssueTrackingApp">
 
-  <div class="menus">
-  <ul class="nav navbar-nav">
-    <li><a href="#List">All Tickets</a></li>
-    <li><a href="#create">Register a ticket</a></li>
-  </ul>
-  </div>
-  <br>
-  <div class="container" ng-view>
 
-  </div>
-  </br>
-  
-  
-
-
+            <header class="header">
+                <a ng-href="#/main"> Home <span class="visuallyhidden"> </span></a>
+      
+            </header>
+            <main class="main" id="main">
+                <div ng-view=""></div>
+            </main>
+            
 </body>
 
 

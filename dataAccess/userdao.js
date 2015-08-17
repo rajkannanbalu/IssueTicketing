@@ -35,7 +35,7 @@ function getUser(cb) {
 		usersrec.forEach( function(user) {
 			console.log(user.severity);
 			str = str + '{ "title" : "' + user.title + '","severity" : "' + user.severity + '","assignee" : "' + user.assignee + '","state" : "' + user.state + '","description" : "'+ user.description +'"},' +'\n';
-			console.log(user.description);
+			console.log(user._id);
 		});
 		str = str.trim();
 		str = str.substring(0,str.length-1);

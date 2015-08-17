@@ -3,18 +3,21 @@
 var myApp = angular.module('IssueTrackingApp', ['ngRoute']);
 
 myApp.config(['$routeProvider',function($routeProvider) {
-        
-        $routeProvider.when('/create', {
-            templateUrl: 'create.html',
-            controller: 'CreateController',
-          }).when('/List', {
-            templateUrl: 'list.html',
-            controller: 'listController',
-          }).otherwise({
-            redirectTo: '/index.html'
-          });
-        
-    
+      $routeProvider.when('/main', {
+        templateUrl: 'view/main.html',
+        controller: 'listController'
+      })
+      .when('/edit/:id', {
+        templateUrl: 'view/edit.html',
+        controller: 'EditController'
+      })
+      .when('/create', {
+        templateUrl: 'view/create.html',
+        controller: 'CreateController'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
 }]);
 
 /* Controllers */
@@ -101,9 +104,30 @@ function listController($scope, $http, $templateCache) {
   var jsonVar = data;
   console.log("Length: " + jsonVar.length);
     
-  $scope.issuelist = data;
+  $scope.IssueTickets = data;
+
 
     });
 
 }
 
+
+function EditController($scope, $http, IssueTickets,$location,$routeParams) {
+
+  console.log("edit begins");
+
+  $scope.IssueTickets = $firebase(dbURL).$asObject();
+  $scope.edit = function() {
+    $scope.IssueTickets.$save();
+    if($scope.state=="Closed") {
+        console.log("closed");
+        $scope.remove = function(id) {
+        IssueTickets.$remove(id);
+      };
+    }
+    $location.path('/main');
+  };
+
+
+  
+}
